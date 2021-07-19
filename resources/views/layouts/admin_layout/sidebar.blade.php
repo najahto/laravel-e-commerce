@@ -1,154 +1,99 @@
- <!-- Main Sidebar Container -->
- <aside class="main-sidebar sidebar-dark-primary elevation-4">
-     <!-- Brand Logo -->
-     <a href="index.html" class="brand-link">
-         <img src="backend/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-             style="opacity: .8">
-         <span class="brand-text font-weight-light">AdminLTE 3</span>
+ <!-- Sidebar -->
+ <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+     <!-- Sidebar - Brand -->
+     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard') }}">
+         <div class="sidebar-brand-icon rotate-n-15">
+             <i class="fas fa-laugh-wink"></i>
+         </div>
+         <div class="sidebar-brand-text mx-3">Vegifood <sup>2</sup></div>
      </a>
 
-     <!-- Sidebar -->
-     <div class="sidebar">
-         <!-- Sidebar user panel (optional) -->
-         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-             <div class="image">
-                 <img src="backend/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-             </div>
-             <div class="info">
-                 <a href="#" class="d-block">Alexander Pierce</a>
+     <!-- Divider -->
+     <hr class="sidebar-divider my-0">
+
+     <!-- Nav Item - Dashboard -->
+     <li class="nav-item {{ Request::is('admin/dashboard') ? 'active' : '' }}">
+         <a class="nav-link" href="{{ route('admin.dashboard') }}">
+             <i class="fas fa-fw fa-tachometer-alt"></i>
+             <span>Dashboard</span></a>
+     </li>
+
+     <!-- Divider -->
+     <hr class="sidebar-divider">
+
+     <li class="nav-item {{ Request::is('admin/categories*') ? 'active' : '' }}">
+         <a class="nav-link {{ Request::is('admin/categories*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+             aria-controls="collapseTwo">
+             <i class="fas fa-fw fa-cog"></i>
+             <span>Categories</span>
+         </a>
+         <div id="collapseTwo" class="collapse {{ Request::is('admin/categories*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+             <div class="bg-white py-2 collapse-inner rounded">
+                 <a class="collapse-item {{ Request::is('admin/categories/create') ? 'active' : '' }}" href="{{ Route('categories.create') }}">Add Category</a>
+                 <a class="collapse-item {{ Request::is('admin/categories') ? 'active' : '' }}" href="{{ Route('categories.index') }}">Categories</a>
              </div>
          </div>
+     </li>
 
-         <!-- Sidebar Menu -->
-         <nav class="mt-2">
-             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                 data-accordion="false">
-                 <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                 <li class="nav-item has-treeview menu-open">
-                     <a href="#" class="nav-link active">
-                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                         <p>
-                             Dashboard
-                             <i class="right fas fa-angle-left"></i>
-                         </p>
-                     </a>
-                     <ul class="nav nav-treeview">
-                         <li class="nav-item">
-                             <a href="./index.html" class="nav-link active">
-                                 <i class="far fa-circle nav-icon"></i>
-                                 <p>Dashboard v1</p>
-                             </a>
-                         </li>
-                     </ul>
-                 </li>
+     <li class="nav-item">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSliders"
+             aria-expanded="true" aria-controls="collapseSliders">
+             <i class="fas fa-fw fa-wrench"></i>
+             <span>Sliders</span>
+         </a>
+         <div id="collapseSliders" class="collapse" aria-labelledby="headingSliders"
+             data-parent="#accordionSidebar">
+             <div class="bg-white py-2 collapse-inner rounded">
+                 <a class="collapse-item" href="utilities-color.html">Add Slider</a>
+                 <a class="collapse-item" href="utilities-border.html">Sliders</a>
+             </div>
+         </div>
+     </li>
 
-                 <li class="nav-item has-treeview">
-                     <a href="#" class="nav-link">
-                         <i class="nav-icon fas fa-folder"></i>
-                         <p>
-                             Categories
-                             <i class="fas fa-angle-left right"></i>
-                         </p>
-                     </a>
-                     <ul class="nav nav-treeview">
-                         <li class="nav-item">
-                             <a href="pages/forms/addcategory.html" class="nav-link">
-                                 <i class="far fa-file nav-icon"></i>
-                                 <p>Add category</p>
-                             </a>
-                         </li>
-                     </ul>
-                     <ul class="nav nav-treeview">
-                         <li class="nav-item">
-                             <a href="pages/tables/categories.html" class="nav-link">
-                                 <i class="far fa-file nav-icon"></i>
-                                 <p>Categories</p>
-                             </a>
-                         </li>
-                     </ul>
-                 </li>
+     <li class="nav-item">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+             aria-expanded="true" aria-controls="collapseUtilities">
+             <i class="fas fa-fw fa-wrench"></i>
+             <span>Products</span>
+         </a>
+         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+             <div class="bg-white py-2 collapse-inner rounded">
+                 <a class="collapse-item" href="utilities-color.html">Add Product</a>
+                 <a class="collapse-item" href="utilities-border.html">Products</a>
+             </div>
+         </div>
+     </li>
 
-                 <li class="nav-item has-treeview">
-                     <a href="#" class="nav-link">
-                         <i class="nav-icon fas fa-folder"></i>
-                         <p>
-                             Sliders
-                             <i class="fas fa-angle-left right"></i>
-                         </p>
-                     </a>
-                     <ul class="nav nav-treeview">
-                         <li class="nav-item">
-                             <a href="pages/forms/addslider.html" class="nav-link">
-                                 <i class="far fa-file nav-icon"></i>
-                                 <p>Add slider</p>
-                             </a>
-                         </li>
-                     </ul>
-                     <ul class="nav nav-treeview">
-                         <li class="nav-item">
-                             <a href="pages/tables/sliders.html" class="nav-link">
-                                 <i class="far fa-file nav-icon"></i>
-                                 <p>Sliders</p>
-                             </a>
-                         </li>
-                     </ul>
-                 </li>
+     <li class="nav-item">
+         <a class="nav-link" href="tables.html">
+             <i class="fas fa-fw fa-table"></i>
+             <span>Orders</span></a>
+     </li>
 
-                 <li class="nav-item has-treeview">
-                     <a href="#" class="nav-link">
-                         <i class="nav-icon fas fa-folder"></i>
-                         <p>
-                             Products
-                             <i class="fas fa-angle-left right"></i>
-                         </p>
-                     </a>
-                     <ul class="nav nav-treeview">
-                         <li class="nav-item">
-                             <a href="pages/forms/addproduct.html" class="nav-link">
-                                 <i class="far fa-file nav-icon"></i>
-                                 <p>Add product</p>
-                             </a>
-                         </li>
-                     </ul>
-                     <ul class="nav nav-treeview">
-                         <li class="nav-item">
-                             <a href="pages/tables/products.html" class="nav-link">
-                                 <i class="far fa-file nav-icon"></i>
-                                 <p>Products</p>
-                             </a>
-                         </li>
-                     </ul>
-                 </li>
+     <!-- Divider -->
+     <hr class="sidebar-divider">
 
-                 <li class="nav-item has-treeview">
-                     <a href="#" class="nav-link">
-                         <i class="nav-icon fas fa-folder"></i>
-                         <p>
-                             Orders
-                             <i class="fas fa-angle-left right"></i>
-                         </p>
-                     </a>
-                     <ul class="nav nav-treeview">
-                         <li class="nav-item">
-                             <a href="pages/tables/orders.html" class="nav-link">
-                                 <i class="far fa-file nav-icon"></i>
-                                 <p>Orders</p>
-                             </a>
-                         </li>
-                     </ul>
-                 </li>
-
-                 <li class="nav-header">MISCELLANEOUS</li>
-                 <li class="nav-item">
-                     <a href="https://adminlte.io/docs/3.0/" class="nav-link">
-                         <i class="nav-icon fas fa-file"></i>
-                         <p>Documentation</p>
-                     </a>
-                 </li>
-             </ul>
-         </nav>
-         <!-- /.sidebar-menu -->
+     <!-- Heading -->
+     <div class="sidebar-heading">
+         MISCELLANEOUS
      </div>
-     <!-- /.sidebar -->
- </aside>
+
+     <!-- Nav Item - MISCELLANEOUS -->
+     <li class="nav-item">
+         <a class="nav-link" href="tables.html">
+             <i class="fas fa-fw fa-table"></i>
+             <span>Documentation</span></a>
+     </li>
+
+     <!-- Divider -->
+     <hr class="sidebar-divider d-none d-md-block">
+
+     <!-- Sidebar Toggler (Sidebar) -->
+     <div class="text-center d-none d-md-inline">
+         <button class="rounded-circle border-0" id="sidebarToggle"></button>
+     </div>
+
+ </ul>
+ <!-- End of Sidebar -->

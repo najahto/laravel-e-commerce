@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
@@ -14,13 +16,28 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/admin/dashboard',[AdminController::class,'dashboard']);
+// Route::get('/admin/dashboard',[AdminController::class,'dashboard']);
+// Route::resource('categories', 'CategoryController');
+
+Route::group(
+    [
+        'namespace' => 'Admin',
+        'prefix' => 'admin',
+        // 'middleware' => ['auth'],
+    ],
+    function () {
+        Route::get('dashboard', [PageController::class,'dashboard'])->name('admin.dashboard');
+        // Route::get('addcategory', [CategoryController::class,'create'])->name('addcategory');
+        // Route::get('categories', [CategoryController::class,'index'])->name('categories');
+        Route::resource('categories', '\App\Http\Controllers\Admin\CategoryController');
+    }
+);
+
 
 Route::get('/', [ClientController::class, 'home']);
 Route::get('/shop', [ClientController::class, 'shop']);
 Route::get('/cart', [ClientController::class, 'cart']);
 Route::get('/checkout', [ClientController::class, 'checkout']);
-
 
 
 // Route::get('/dashboard', function () {
