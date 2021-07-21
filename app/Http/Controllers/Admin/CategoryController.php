@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\Constant;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,7 +16,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.categories.index');
+        
+        $categories = Category::paginate(Constant::COUNT_PER_PAGE);
+        return view('admin.categories.index')->with('categories',$categories);
     }
 
     /**
@@ -35,7 +39,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-       
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
+        Category::create([
+            'name' => $request->name,
+        ]);
+
+        session()->flash('success', 'Saved');
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -56,7 +70,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-      
+        $category = Category::findOrFail($id);
+        return view('admin.categories.edit')->with('category', $category);
     }
 
     /**
@@ -68,6 +83,19 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
+        $category = Category::findOrFail($id);
+
+        $category->update([
+            'name' => $request->name,
+        ]);
+
+        session()->flash('success', 'Updated');
+
+        return redirect()->route('categories.index');
        
     }
 
@@ -81,6 +109,11 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        session()->flash('success', 'Deleted');
+
+        return redirect()->back();
     }
 }

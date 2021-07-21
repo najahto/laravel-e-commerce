@@ -36,32 +36,32 @@
          </div>
      </li>
 
-     <li class="nav-item">
-         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSliders"
+     <li class="nav-item {{ Request::is('admin/sliders*') ? 'active' : '' }}">
+         <a class="nav-link {{ Request::is('admin/sliders*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseSliders"
              aria-expanded="true" aria-controls="collapseSliders">
              <i class="fas fa-fw fa-wrench"></i>
              <span>Sliders</span>
          </a>
-         <div id="collapseSliders" class="collapse" aria-labelledby="headingSliders"
+         <div id="collapseSliders" class="collapse {{ Request::is('admin/sliders*') ? 'show' : '' }}" aria-labelledby="headingSliders"
              data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
-                 <a class="collapse-item" href="utilities-color.html">Add Slider</a>
-                 <a class="collapse-item" href="utilities-border.html">Sliders</a>
+                 <a class="collapse-item {{ Request::is('admin/sliders/create') ? 'active' : '' }}" href="{{ Route('sliders.create') }}">Add Slider</a>
+                 <a class="collapse-item {{ Request::is('admin/sliders') ? 'active' : '' }}" href="{{ Route('sliders.index') }}">Sliders</a>
              </div>
          </div>
      </li>
 
-     <li class="nav-item">
-         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+     <li class="nav-item {{ Request::is('admin/products*') ? 'active' : '' }}">
+         <a class="nav-link {{ Request::is('admin/products*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseUtilities"
              aria-expanded="true" aria-controls="collapseUtilities">
              <i class="fas fa-fw fa-wrench"></i>
              <span>Products</span>
          </a>
-         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+         <div id="collapseUtilities" class="collapse {{ Request::is('admin/products*') ? 'show' : '' }}" aria-labelledby="headingUtilities"
              data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
-                 <a class="collapse-item" href="utilities-color.html">Add Product</a>
-                 <a class="collapse-item" href="utilities-border.html">Products</a>
+                 <a class="collapse-item {{ Request::is('admin/products/create') ? 'active' : '' }}" href="{{ Route('products.create') }}">Add Product</a>
+                 <a class="collapse-item {{ Request::is('admin/products') ? 'active' : '' }}" href="{{ Route('products.index') }}">Products</a>
              </div>
          </div>
      </li>

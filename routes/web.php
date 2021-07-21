@@ -27,9 +27,9 @@ Route::group(
     ],
     function () {
         Route::get('dashboard', [PageController::class,'dashboard'])->name('admin.dashboard');
-        // Route::get('addcategory', [CategoryController::class,'create'])->name('addcategory');
-        // Route::get('categories', [CategoryController::class,'index'])->name('categories');
         Route::resource('categories', '\App\Http\Controllers\Admin\CategoryController');
+        Route::resource('products', '\App\Http\Controllers\Admin\ProductController');
+        Route::resource('sliders', '\App\Http\Controllers\Admin\SliderController');
     }
 );
 

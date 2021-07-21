@@ -5,7 +5,7 @@
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        
+
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
@@ -34,46 +34,54 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Num.</th>
-                                            <th>Category Name</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Internet
-                                                Explorer 4.0
-                                            </td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
-                                                <a href="#" id="delete" class="btn btn-danger"><i
-                                                        class="nav-icon fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Internet
-                                                Explorer 5.0
-                                            </td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
-                                                <a href="#" id="delete" class="btn btn-danger"><i
-                                                        class="nav-icon fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Num.</th>
-                                            <th>Category Name</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+                                @if (count($categories) > 0)
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Num.</th>
+                                                <th>Category Name</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($categories as $category)
+                                                <tr>
+                                                    <td>{{ $category->id }}</td>
+                                                    <td>{{ $category->name }}</td>
+                                                    <td>
+                                                        <a href="{{ route('categories.edit', $category->id) }}"
+                                                            class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
+                                                        <form style="display: inline"
+                                                            action="{{ route('categories.destroy', $category->id) }}"
+                                                            method="post">
+                                                            <a href="{{ route('categories.destroy', $category->id) }}"
+                                                                class="btn btn-danger btn-delete-resource redirect-after-confirmation"
+                                                                data-confirmation-message="Are you sure you want to delete?"><i
+                                                                    class=" nav-icon fas fa-trash"></i></a>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Num.</th>
+                                                <th>Category Name</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
+                                    <div class="text-center">
+                                        {!! $categories->links() !!}
+                                    </div>
+
+                                    <p>&nbsp;</p>
+                                @else
+                                    <p>
+                                    <h5 style="color:#F00;">No data</h5>
+                                    </p>
+                                @endif
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -89,3 +97,15 @@
     </div>
 @endsection
 <!-- /.content-wrapper -->
+@push('styles')
+    <style>
+        /* Page Specific Custom Style Here */
+
+    </style>
+@endpush
+
+@push('scripts')
+    <script>
+        /* Page Specific Custom Script Here */
+    </script>
+@endpush

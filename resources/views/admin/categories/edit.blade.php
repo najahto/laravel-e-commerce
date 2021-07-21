@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout.admin')
 
-@section('pagetitle', 'Add Category - ' . config('app.name'))
+@section('pagetitle', 'Edit Category - ' . config('app.name'))
     <!-- start content -->
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -31,24 +31,21 @@
                         <!-- jquery validation -->
                         <div class="card card-primary">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Add Category</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Edit Category</h6>
                             </div>
                             <!-- /.card-header -->
-                  
                             <!-- form start -->
-                            <form action="{{ Route('categories.store') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('categories.update') }}" method="POST">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Category name</label>
-                                        <input type="text" name="name" class="form-control"
-                                            placeholder="Enter category">
+                                        <input type="text" name="name" class="form-control" placeholder="Enter category">
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
-                                @include('admin.partials.error')
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </form>
                         </div>

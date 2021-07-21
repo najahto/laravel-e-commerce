@@ -20,8 +20,12 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+    <!-- Sweet Alert 2 -->
+    <link href="{{ asset('backend/css/sweetalert2.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend/css/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+
     @stack('styles')
-    
+
 </head>
 
 <body id="page-top">
@@ -98,10 +102,40 @@
     <!-- Page level plugins -->
     <script src="{{ asset('backend/vendor/chart.js/Chart.min.js') }}"></script>
 
+    <!-- Sweet Alert 2 -->
+    <script src="{{ asset('backend/js/sweetalert2.js') }}"></script>
+    <script src="{{ asset('backend/js/sweetalert2.min.js') }}"></script>
+
     <!-- Page level custom scripts -->
     <script src="{{ asset('backend/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('backend/js/demo/chart-pie-demo.js') }}"></script>
+    <script>
+        $(document).ready(function() {
 
+            $('.btn-delete-resource').click(function(event) {
+                event.preventDefault();
+                var form = $(this).data('form-id') != null ? $('#' + $(this).data('form-id')) : $(this)
+                    .parent();
+                if ($(this).hasClass('redirect-after-confirmation')) {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        icon: 'warning',
+                        text: $(this).data('confirmation-message'),
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, Delete!',
+                        confirmButtonColor: '#e3342f',
+                        showLoaderOnConfirm: true,
+                        preConfirm: () => {
+                            return new Promise((resolve) => {
+                                form.submit();
+                            })
+                        }
+                    })
+                }
+            });
+        });
+    </script>
+    @include('admin.partials.messages')
     @stack('scripts')
 </body>
 

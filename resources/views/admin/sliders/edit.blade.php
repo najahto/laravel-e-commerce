@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout.admin')
 
-@section('pagetitle', 'Add Category - ' . config('app.name'))
+@section('pagetitle', 'Edit Slider - ' . config('app.name'))
     <!-- start content -->
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -10,12 +10,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h2>Category</h2>
+                        <h2>Slider</h2>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Category</li>
+                            <li class="breadcrumb-item active">Slider</li>
                         </ol>
                     </div>
                 </div>
@@ -31,24 +31,37 @@
                         <!-- jquery validation -->
                         <div class="card card-primary">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Add Category</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Edit Slider</h6>
                             </div>
                             <!-- /.card-header -->
-                  
                             <!-- form start -->
-                            <form action="{{ Route('categories.store') }}" method="post" enctype="multipart/form-data">
-                                @csrf
+                            <form>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Category name</label>
-                                        <input type="text" name="name" class="form-control"
-                                            placeholder="Enter category">
+                                        <label for="exampleInputEmail1">Slider description 1</label>
+                                        <input type="text" name="description1" class="form-control" id="exampleInputEmail1"
+                                            placeholder="Enter slider description">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Slider description 2</label>
+                                        <input type="text" name="description2" class="form-control" id="exampleInputEmail1"
+                                            placeholder="Enter slider description">
+                                    </div>
+                                    <label for="exampleInputFile">Slider image</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                        </div>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">Upload</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
-                                @include('admin.partials.error')
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <!-- <button type="submit" class="btn btn-warning">Submit</button> -->
+                                    <input type="submit" class="btn btn-warning" value="Update">
                                 </div>
                             </form>
                         </div>
