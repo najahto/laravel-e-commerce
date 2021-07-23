@@ -34,64 +34,78 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Num.</th>
-                                            <th>Picture</th>
-                                            <th>Product Name</th>
-                                            <th>Product Category</th>
-                                            <th>Product Price</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <img src="../../dist/img/user2-160x160.jpg"
-                                                    style="height : 50px; width : 50px" class="img-circle elevation-2"
-                                                    alt="User Image">
-                                            </td>
-                                            <td>Win 95+</td>
-                                            <td> 4</td>
-                                            <td>5</td>
-                                            <td>
-                                                <a href="#" class="btn btn-success">Unactivate</a>
-                                                <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
-                                                <a href="#" id="delete" class="btn btn-danger"><i
-                                                        class="nav-icon fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>
-                                                <img src="../../dist/img/user2-160x160.jpg"
-                                                    style="height : 50px; width : 50px" class="img-circle elevation-2"
-                                                    alt="User Image">
-                                            </td>
-                                            <td>Win 95+</td>
-                                            <td>5</td>
-                                            <td>5</td>
-                                            <td>
-                                                <a href="#" class="btn btn-warning">Activate</a>
-                                                <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
-                                                <a href="#" id="delete" class="btn btn-danger"><i
-                                                        class="nav-icon fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Num.</th>
-                                            <th>Picture</th>
-                                            <th>Product Name</th>
-                                            <th>Product Category</th>
-                                            <th>Product Price</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+                                @if (count($products) > 0)
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Num.</th>
+                                                <th>Picture</th>
+                                                <th>Product Name</th>
+                                                <th>Product Price</th>
+                                                <th>Product Category</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($products as $product)
+                                                <tr>
+                                                    <td>{{ $product->id }}</td>
+                                                    <td>
+                                                        @if ($product->image_url)
+                                                            <img src="{{ asset('storage/' . $product->image_url) }}"
+                                                                style="height : 50px; width : 50px"
+                                                                class="img-circle elevation-2" alt="Product Image">
+                                                        @else
+                                                            <img src="{{ asset('backend/img/no_image_placeholder.jpg') }}"
+                                                                style="height : 50px; width : 50px"
+                                                                alt="no image availibale">
+                                                        @endif
+
+                                                    </td>
+                                                    <td>{{ $product->name }}</td>
+                                                    <td>{{ $product->price }}</td>
+                                                    <td>{{ $product->category->name }}</td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-success">Unactivate</a>
+                                                        <a href="{{ route('products.edit', $product->id) }}"
+                                                            class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
+                                                        <form action="{{ route('products.destroy', $product->id) }}"
+                                                            method="POST" style="display: inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <a href="{{ route('products.destroy', $product->id) }}"
+                                                                class="btn btn-danger btn-delete-resource redirect-after-confirmation"
+                                                                data-confirmation-message="Are you sure you want to delete?"><i
+                                                                    class=" nav-icon fas fa-trash"></i></a>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Num.</th>
+                                                <th>Picture</th>
+                                                <th>Product Name</th>
+                                                <th>Product Price</th>
+                                                <th>Product Category</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
+                                    <div class="d-flex">
+                                        <div class="mx-auto">
+                                            {!! $products->links() !!}
+                                        </div>
+                                    </div>
+
+                                @else
+                                    <p>
+                                    <h5 style="color:#F00;">No data</h5>
+                                    </p>
+                                @endif
+
                             </div>
                             <!-- /.card-body -->
                         </div>

@@ -35,30 +35,34 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form id="quickForm">
+                            <form action="{{ route('products.update', $product->id) }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Product name</label>
-                                        <input type="text" name="product_name" class="form-control" id="exampleInputEmail1"
-                                            placeholder="Enter product name">
+                                        <input type="text" name="name" value="{{ $product->name }}" class="form-control"
+                                            id="exampleInputEmail1" placeholder="Enter product name">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Product price</label>
-                                        <input type="number" name="product_price" class="form-control"
-                                            id="exampleInputEmail1" placeholder="Enter product price" min="1">
+                                        <input type="number" name="price" value="{{ $product->price }}"
+                                            class="form-control" id="exampleInputEmail1" placeholder="Enter product price"
+                                            min="1">
                                     </div>
                                     <div class="form-group">
                                         <label>Product category</label>
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">Fruit</option>
-                                            <option>Juice</option>
-                                            <option>Vegetable</option>
+                                        <select name="category" class="form-control select2" style="width: 100%;">
+                                            @foreach ($categories as $category)
+                                                <option {{ old('category', $product->category_id) == $category->id ? 'selected' : ''}} value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <label for="exampleInputFile">Product image</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                                            <input type="file" name="image" class="custom-file-input" id="exampleInputFile">
                                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                         </div>
                                         <div class="input-group-append">
@@ -67,9 +71,9 @@
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
+                                @include('admin.partials.error')
                                 <div class="card-footer">
-                                    <!-- <button type="submit" class="btn btn-success">Submit</button> -->
-                                    <input type="submit" class="btn btn-success" value="Update">
+                                    <button type="submit" class="btn btn-success">Update</button>
                                 </div>
                             </form>
                         </div>

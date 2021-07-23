@@ -35,12 +35,13 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form action="{{ route('categories.update') }}" method="POST">
+                            <form action="{{ Route('categories.update', $category->id) }}" method="POST">
                                 @csrf
+                                @method('PUT')
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Category name</label>
-                                        <input type="text" name="name" class="form-control" placeholder="Enter category">
+                                        <input type="text" name="name" class="form-control" value="{{ $category->name }}" placeholder="Enter category">
                                     </div>
                                 </div>
                                 <!-- /.card-body -->

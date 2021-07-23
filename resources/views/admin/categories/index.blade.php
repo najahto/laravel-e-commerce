@@ -50,10 +50,13 @@
                                                     <td>{{ $category->name }}</td>
                                                     <td>
                                                         <a href="{{ route('categories.edit', $category->id) }}"
-                                                            class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
+                                                            class="btn btn-primary"><i class="nav-icon fas fa-edit"></i>
+                                                        </a>
                                                         <form style="display: inline"
                                                             action="{{ route('categories.destroy', $category->id) }}"
                                                             method="post">
+                                                            @csrf
+                                                            @method('DELETE')
                                                             <a href="{{ route('categories.destroy', $category->id) }}"
                                                                 class="btn btn-danger btn-delete-resource redirect-after-confirmation"
                                                                 data-confirmation-message="Are you sure you want to delete?"><i
@@ -71,17 +74,18 @@
                                             </tr>
                                         </tfoot>
                                     </table>
-
-                                    <div class="text-center">
-                                        {!! $categories->links() !!}
+                                    
+                                    <div class="d-flex">
+                                        <div class="mx-auto">
+                                            {!! $categories->links() !!}
+                                        </div>
                                     </div>
-
-                                    <p>&nbsp;</p>
                                 @else
                                     <p>
                                     <h5 style="color:#F00;">No data</h5>
                                     </p>
                                 @endif
+
                             </div>
                             <!-- /.card-body -->
                         </div>
