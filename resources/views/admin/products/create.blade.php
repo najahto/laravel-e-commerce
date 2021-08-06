@@ -39,21 +39,30 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Product name</label>
-                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1"
+                                        <label for="productName">Product name</label>
+                                        <input type="text" name="name" class="form-control" id="productName"
                                             placeholder="Enter product name">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Product price</label>
-                                        <input type="number" name="price" class="form-control"
-                                            id="exampleInputEmail1" placeholder="Enter product price" min="1">
+                                        <label for="productPrice">Product price</label>
+                                        <input type="number" name="price" class="form-control" id="productPrice" step=".01"
+                                            placeholder="Enter product price">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="discount">Product discount (%)</label>
+                                        <input id="discount" type="number" name="discount" min="0" max="100" step=".01"
+                                            placeholder="Enter discount" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="productDescription">Product Description</label>
+                                        <textarea placeholder="Enter Product Description" class="form-control"
+                                            name="description" id="productDescription" rows="3"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label>Product category</label>
                                         <select name="category" class="form-control select2" style="width: 100%;">
-                                            {{-- <option selected="selected">Fruit</option> --}}
                                             @foreach ($categories as $category)
-                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

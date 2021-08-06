@@ -52,10 +52,23 @@
                                             min="1">
                                     </div>
                                     <div class="form-group">
+                                        <label for="discount">Product discount (%)</label>
+                                        <input id="discount" type="number" name="discount" min="0" max="100" step=".01"
+                                            placeholder="Enter discount" class="form-control"
+                                            value="{{ $product->discount }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="productDescription">Product Description</label>
+                                        <textarea placeholder="Enter Product Description" class="form-control"
+                                            name="description" id="productDescription" rows="3">{{ $product->description }}"</textarea>
+                                    </div>
+                                    <div class="form-group">
                                         <label>Product category</label>
                                         <select name="category" class="form-control select2" style="width: 100%;">
                                             @foreach ($categories as $category)
-                                                <option {{ old('category', $product->category_id) == $category->id ? 'selected' : ''}} value="{{ $category->id }}">{{ $category->name }}</option>
+                                                <option
+                                                    {{ old('category', $product->category_id) == $category->id ? 'selected' : '' }}
+                                                    value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

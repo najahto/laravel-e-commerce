@@ -35,7 +35,8 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form>
+                            <form action="{{ route('sliders.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Slider description 1</label>
@@ -50,7 +51,7 @@
                                     <label for="exampleInputFile">Slider image</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                                            <input type="file" name="image" class="custom-file-input" id="exampleInputFile">
                                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                         </div>
                                         <div class="input-group-append">
@@ -59,9 +60,9 @@
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
+                                @include('admin.partials.error')
                                 <div class="card-footer">
-                                    <!-- <button type="submit" class="btn btn-warning">Submit</button> -->
-                                    <input type="submit" class="btn btn-warning" value="Save">
+                                    <button type="submit" class="btn btn-warning">Save</button>
                                 </div>
                             </form>
                         </div>

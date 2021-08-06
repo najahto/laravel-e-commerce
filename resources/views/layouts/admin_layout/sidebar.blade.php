@@ -25,7 +25,7 @@
      <li class="nav-item {{ Request::is('admin/categories*') ? 'active' : '' }}">
          <a class="nav-link {{ Request::is('admin/categories*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
              aria-controls="collapseTwo">
-             <i class="fas fa-fw fa-cog"></i>
+             <i class="fas fa-sitemap fa-folder"></i>
              <span>Categories</span>
          </a>
          <div id="collapseTwo" class="collapse {{ Request::is('admin/categories*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -39,7 +39,7 @@
      <li class="nav-item {{ Request::is('admin/products*') ? 'active' : '' }}">
         <a class="nav-link {{ Request::is('admin/products*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseUtilities"
             aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
+            <i class="fas fa-cubes"></i>
             <span>Products</span>
         </a>
         <div id="collapseUtilities" class="collapse {{ Request::is('admin/products*') ? 'show' : '' }}" aria-labelledby="headingUtilities"
@@ -54,7 +54,7 @@
      <li class="nav-item {{ Request::is('admin/sliders*') ? 'active' : '' }}">
          <a class="nav-link {{ Request::is('admin/sliders*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseSliders"
              aria-expanded="true" aria-controls="collapseSliders">
-             <i class="fas fa-fw fa-wrench"></i>
+             <i class="fas fa-image"></i>
              <span>Sliders</span>
          </a>
          <div id="collapseSliders" class="collapse {{ Request::is('admin/sliders*') ? 'show' : '' }}" aria-labelledby="headingSliders"
@@ -68,8 +68,20 @@
 
      <li class="nav-item">
          <a class="nav-link" href="tables.html">
-             <i class="fas fa-fw fa-table"></i>
+             <i class="fas fa-hammer fa-chart-area"></i>
              <span>Orders</span></a>
+     </li>
+
+     <li class="nav-item">
+         <a class="nav-link" href="tables.html">
+             <i class="fas fa-users"></i>
+             <span>Users</span></a>
+     </li>
+
+     <li class="nav-item">
+         <a class="nav-link" href="tables.html">
+             <i class="fas fa-fw fa-cog"></i>
+             <span>Settings</span></a>
      </li>
 
      <!-- Divider -->

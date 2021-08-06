@@ -35,22 +35,25 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form>
+                            <form action="{{ route('sliders.update', $slider->id) }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Slider description 1</label>
-                                        <input type="text" name="description1" class="form-control" id="exampleInputEmail1"
-                                            placeholder="Enter slider description">
+                                        <input type="text" name="description1" class="form-control"
+                                            value="{{ $slider->description1 }}" placeholder="Enter slider description">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Slider description 2</label>
-                                        <input type="text" name="description2" class="form-control" id="exampleInputEmail1"
-                                            placeholder="Enter slider description">
+                                        <input type="text" name="description2" class="form-control"
+                                            value="  {{ $slider->description2 }} " placeholder="Enter slider description">
                                     </div>
                                     <label for="exampleInputFile">Slider image</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                                            <input type="file" name="image" class="custom-file-input" id="exampleInputFile">
                                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                         </div>
                                         <div class="input-group-append">
@@ -59,9 +62,9 @@
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
+                                @include('admin.partials.error')
                                 <div class="card-footer">
-                                    <!-- <button type="submit" class="btn btn-warning">Submit</button> -->
-                                    <input type="submit" class="btn btn-warning" value="Update">
+                                    <button type="submit" class="btn btn-warning">Update</button>
                                 </div>
                             </form>
                         </div>

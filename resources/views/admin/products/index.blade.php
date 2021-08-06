@@ -30,7 +30,10 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">All Products</h6>
+                                <h6 class="m-0 font-weight-bold text-primary float-left">Product Lists</h6>
+                                <a href="{{ route('products.create') }}" class="btn btn-primary btn-sm float-right"
+                                    data-toggle="tooltip" data-placement="bottom" title="Add User"><i
+                                        class="fas fa-plus"></i> Add Product</a>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -38,11 +41,13 @@
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Num.</th>
+                                                <th>ID.</th>
                                                 <th>Picture</th>
-                                                <th>Product Name</th>
-                                                <th>Product Price</th>
-                                                <th>Product Category</th>
+                                                <th>Name</th>
+                                                <th>Price</th>
+                                                <th>Discount</th>
+                                                <th>Category</th>
+                                                <th>Description</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -64,9 +69,17 @@
                                                     </td>
                                                     <td>{{ $product->name }}</td>
                                                     <td>{{ $product->price }}</td>
+                                                    <td>{{ $product->discount }}% OFF</td>
                                                     <td>{{ $product->category->name }}</td>
+                                                    <td>{{ Str::limit($product->description, 10, '...') }}</td>
                                                     <td>
-                                                        <a href="#" class="btn btn-success">Unactivate</a>
+                                                        @if ($product->status == 1)
+                                                            <a href="{{ route('inactivate.product', $product->id) }}"
+                                                                class="btn btn-warning">Inactivate</a>
+                                                        @else
+                                                            <a href="{{ route('activate.product', $product->id) }}"
+                                                                class="btn btn-success">Activate</a>
+                                                        @endif
                                                         <a href="{{ route('products.edit', $product->id) }}"
                                                             class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
                                                         <form action="{{ route('products.destroy', $product->id) }}"

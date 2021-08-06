@@ -30,7 +30,10 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">All Categories</h6>
+                                <h6 class="m-0 font-weight-bold text-primary float-left">Category Lists</h6>
+                                <a href="{{ route('categories.create') }}" class="btn btn-primary btn-sm float-right"
+                                    data-toggle="tooltip" data-placement="bottom" title="Add User"><i
+                                        class="fas fa-plus"></i> Add Category</a>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -74,7 +77,7 @@
                                             </tr>
                                         </tfoot>
                                     </table>
-                                    
+
                                     <div class="d-flex">
                                         <div class="mx-auto">
                                             {!! $categories->links() !!}
