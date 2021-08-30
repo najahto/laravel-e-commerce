@@ -41,19 +41,11 @@ class ClientController extends Controller
         ]);
     }
 
-    public function cart()
-    {
-        return view('client.cart');
-    }
-
-    public function checkout()
-    {
-        return view('client.checkout');
-    }
     public function login()
     {
         return view('client.checkout');
     }
+
     public function register()
     {
         return view('client.checkout');

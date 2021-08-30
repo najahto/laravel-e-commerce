@@ -34,7 +34,7 @@
                         <span><i class="ion-ios-heart"></i></span>
                     </a>
 
-                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                    <a href="{{ route('add-to-cart',$product->id) }}" class="buy-now d-flex justify-content-center align-items-center mx-1">
                         <span><i class="ion-ios-cart"></i></span>
                     </a>
                 </div>

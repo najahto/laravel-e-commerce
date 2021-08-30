@@ -1,7 +1,7 @@
 @extends('layouts.client_layout.client')
 
 @section('pagetitle', 'Cart - ' . config('app.name'))
-    <!-- start content -->
+<!-- start content -->
 @section('content')
     <div class="hero-wrap hero-bread" style="background-image: url('frontend/images/bg_1.jpg');">
         <div class="container">
@@ -31,58 +31,85 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-center">
-                                    <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+                                @if (Session::has('cart'))
+                                    @php
+                                        $totalPrice = 0;
+                                    @endphp
 
-                                    <td class="image-prod">
-                                        <div class="img" style="background-image:url(frontend/images/product-3.jpg);">
-                                        </div>
-                                    </td>
+                                    @foreach ($products as $product)
+                                        <tr class="text-center">
 
-                                    <td class="product-name">
-                                        <h3>Bell Pepper</h3>
-                                        <p>Far far away, behind the word mountains, far from the countries</p>
-                                    </td>
+                                            <td class="product-remove"><a
+                                                    href="{{ route('remove-from-cart', $product['product_id']) }}"><span
+                                                        class="ion-ios-close"></span></a>
+                                            </td>
 
-                                    <td class="price">$4.90</td>
-                                    <form action="">
-                                        <td class="quantity">
-                                            <div class="input-group mb-3">
-                                                <input type="number" name="quantity"
-                                                    class="quantity form-control input-number" value="1" min="1" max="100">
-                                            </div>
-                                    </form>
+                                            <td class="image-prod">
+                                                <div class="img"
+                                                    style="background-image:url({{ asset('storage/' . $product['product_image']) }});">
+                                                </div>
+                                            </td>
 
+                                            <td class="product-name">
+                                                <h3>{{ $product['product_name'] }}</h3>
+                                            </td>
 
-                                    </td>
+                                            <td class="price">
+                                                @if ($product['product_discount'] > 0)
+                                                    <span class="mr-2 price-dc"><del>${{ number_format($product['product_price'], 2) }}
+                                                        </del></span>
+                                                    <span class="price-sale">
+                                                        @php
+                                                            $after_discount = $product['product_price'] - ($product['product_price'] * $product['product_discount']) / 100;
+                                                        @endphp
+                                                        ${{ number_format($after_discount, 2) }}
 
-                                    <td class="total">$4.90</td>
-                                </tr><!-- END TR-->
+                                                    </span>
+                                                @else
+                                                    <span class="price-sale">
+                                                        ${{ number_format($product['product_price'], 2) }}
+                                                    </span>
+                                                @endif
+                                            </td>
+                                            <form action="{{ route('update-quantity', $product['product_id']) }}"
+                                                method="POST">
+                                                @csrf
+                                                <td class="quantity">
+                                                    <div class="input-group mb-3">
+                                                        <input type="number" name="quantity"
+                                                            class="quantity form-control input-number"
+                                                            value="{{ $product['qty'] }}" min="1" max="100">
+                                                    </div>
+                                                    <input type="submit" class="btn btn-success" value="validate">
+                                                </td>
+                                            </form>
 
-                                <tr class="text-center">
-                                    <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+                                            <td class="total">
+                                                @if ($product['product_discount'] > 0)
+                                                    @php
+                                                        $total = $product['qty'] * $after_discount;
+                                                    @endphp
+                                                    ${{ number_format($total, 2) }}
+                                                    @php
+                                                        $totalPrice = $totalPrice + $total;
+                                                    @endphp
+                                                @else
+                                                    @php
+                                                        $total = $product['qty'] * $product['product_price'];
+                                                    @endphp
+                                                    ${{ number_format($total, 2) }}
+                                                    @php
+                                                        $totalPrice = $totalPrice + $total;
+                                                    @endphp
+                                                @endif
+                                            </td>
+                                        </tr><!-- END TR-->
+                                    @endforeach
 
-                                    <td class="image-prod">
-                                        <div class="img" style="background-image:url(frontend/images/product-4.jpg);">
-                                        </div>
-                                    </td>
+                                @else
+                                    <h3> the cart is empty try to add products</h3>
+                                @endif
 
-                                    <td class="product-name">
-                                        <h3>Bell Pepper</h3>
-                                        <p>Far far away, behind the word mountains, far from the countries</p>
-                                    </td>
-
-                                    <td class="price">$15.70</td>
-
-                                    <td class="quantity">
-                                        <div class="input-group mb-3">
-                                            <input type="text" name="quantity" class="quantity form-control input-number"
-                                                value="1" min="1" max="100">
-                                        </div>
-                                    </td>
-
-                                    <td class="total">$15.70</td>
-                                </tr><!-- END TR-->
                             </tbody>
                         </table>
                     </div>
@@ -102,6 +129,7 @@
                     </div>
                     <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
                 </div>
+
                 <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
                     <div class="cart-total mb-3">
                         <h3>Estimate shipping and tax</h3>
@@ -128,20 +156,16 @@
                         <h3>Cart Totals</h3>
                         <p class="d-flex">
                             <span>Subtotal</span>
-                            <span>$20.60</span>
+                            <span>${{ number_format($totalPrice, 2) }}</span>
                         </p>
                         <p class="d-flex">
                             <span>Delivery</span>
                             <span>$0.00</span>
                         </p>
-                        <p class="d-flex">
-                            <span>Discount</span>
-                            <span>$3.00</span>
-                        </p>
                         <hr>
                         <p class="d-flex total-price">
                             <span>Total</span>
-                            <span>$17.60</span>
+                            <span>${{ number_format($totalPrice, 2) }}</span>
                         </p>
                     </div>
                     <p><a href="{{ url('/checkout') }}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>

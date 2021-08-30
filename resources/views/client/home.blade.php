@@ -12,9 +12,8 @@
                     <div class="container">
                         <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
                             <div class="col-md-12 ftco-animate text-center">
-                                <h1 class="mb-2">We serve Fresh Vegestables &amp; Fruits</h1>
-                                <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-                                <p><a href="#" class="btn btn-primary">View Details</a></p>
+                                <h1 class="mb-2">{{ $slider->description1}}</h1>
+                                <h2 class="subheading mb-4">{{ $slider->description2}}</h2>
                             </div>
                         </div>
                     </div>

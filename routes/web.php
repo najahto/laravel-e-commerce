@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Client\ShoppingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/admin/dashboard',[AdminController::class,'dashboard']);
 // Route::resource('categories', 'CategoryController');
 
+// Admin routes
 Route::group(
     [
         'namespace' => 'Admin',
@@ -40,12 +42,14 @@ Route::group(
 );
 
 // Frontend Routes
-
 Route::get('/', [ClientController::class, 'home'])->name('home');
 Route::get('/shop', [ClientController::class, 'shop']);
 Route::get('/product-detail/{id}', [ClientController::class, 'productDetail'])->name('product-detail');
-Route::get('/cart', [ClientController::class, 'cart']);
-Route::get('/checkout', [ClientController::class, 'checkout']);
+Route::get('/cart', [ShoppingController::class, 'cart'])->name('cart');
+Route::get('/add-to-cart/{id}', [ShoppingController::class, 'addToCart'])->name('add-to-cart');
+Route::post('/update-quantity/{id}', [ShoppingController::class, 'updateQuantity'])->name('update-quantity');
+Route::get('/remove-from-cart/{id}', [ShoppingController::class, 'removeFromCart'])->name('remove-from-cart');
+Route::get('/checkout', [ShoppingController::class, 'checkout']);
 
 
 // Route::get('/dashboard', function () {

@@ -19,7 +19,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mb-5 ftco-animate">
-                    <img class="img-fluid" src="{{ asset('storage/' . $productDetail->image_url) }}" alt="Colorlib Template">
+                    <img class="img-fluid" src="{{ asset('storage/' . $productDetail->image_url) }}"
+                        alt="Colorlib Template">
                 </div>
                 <div class="col-lg-6 product-details pl-md-5 ftco-animate">
                     <h3>{{ $productDetail->name }}</h3>
@@ -32,24 +33,10 @@
                     </p>
                     <div class="row mt-4">
                         <div class="w-100"></div>
-                        <div class="input-group col-md-6 d-flex mb-3">
-                            <span class="input-group-btn mr-2">
-                                <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
-                                    <i class="ion-ios-remove"></i>
-                                </button>
-                            </span>
-                            <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1"
-                                min="1" max="100">
-                            <span class="input-group-btn ml-2">
-                                <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-                                    <i class="ion-ios-add"></i>
-                                </button>
-                            </span>
-                        </div>
-                        <div class="w-100"></div>
 
 
-                        <p style="margin-top: 30px;"><a href="cart.html" class="btn btn-black py-3 px-5">Add to Cart</a></p>
+                        <p style="margin-top: 30px;"><a href="{{ route('add-to-cart', $productDetail->id) }}"
+                                class="btn btn-black py-3 px-5">Add to Cart</a></p>
                     </div>
                 </div>
             </div>
