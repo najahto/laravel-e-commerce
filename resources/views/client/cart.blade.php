@@ -7,7 +7,9 @@
         <div class="container">
             <div class="row no-gutters slider-text align-items-center justify-content-center">
                 <div class="col-md-9 ftco-animate text-center">
-                    <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Cart</span></p>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span>
+                        <span>Cart</span>
+                    </p>
                     <h1 class="mb-0 bread">My Cart</h1>
                 </div>
             </div>
@@ -31,11 +33,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $totalPrice = 0;
+                                @endphp
                                 @if (Session::has('cart'))
-                                    @php
-                                        $totalPrice = 0;
-                                    @endphp
-
                                     @foreach ($products as $product)
                                         <tr class="text-center">
 
@@ -107,7 +108,7 @@
                                     @endforeach
 
                                 @else
-                                    <h3> the cart is empty try to add products</h3>
+                                    <h2> the cart is empty try to add products</h2>
                                 @endif
 
                             </tbody>
@@ -116,42 +117,27 @@
                 </div>
             </div>
             <div class="row justify-content-end">
-                <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+                <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
                     <div class="cart-total mb-3">
-                        <h3>Coupon Code</h3>
-                        <p>Enter your coupon code if you have one</p>
-                        <form action="#" class="info">
-                            <div class="form-group">
-                                <label for="">Coupon code</label>
-                                <input type="text" class="form-control text-left px-3" placeholder="">
-                            </div>
-                        </form>
-                    </div>
-                    <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
-                </div>
-
-                <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
-                    <div class="cart-total mb-3">
-                        <h3>Estimate shipping and tax</h3>
+                        <h3>Estimate shipping </h3>
                         <p>Enter your destination to get a shipping estimate</p>
-                        <form action="#" class="info">
-                            <div class="form-group">
-                                <label for="">Country</label>
-                                <input type="text" class="form-control text-left px-3" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="country">State/Province</label>
-                                <input type="text" class="form-control text-left px-3" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="country">Zip/Postal Code</label>
-                                <input type="text" class="form-control text-left px-3" placeholder="">
-                            </div>
-                        </form>
+                        <div class="form-group">
+                            <label for="area">Delivery sectors and areas</label>
+                            <select name="area" class="js-example-basic-single form-control"
+                                onchange="displayDelivryPrice(this.value)" id="">
+                                @foreach ($sectors as $sector)
+                                    <option disabled selected value> -- select an area -- </option>
+                                    <optgroup label="{{ $sector->name }} &nbsp;-&nbsp;${{ $sector->price }}">
+                                    </optgroup>
+                                    @foreach ($sector->areas as $area)
+                                        <option value="{{ $sector->price }}">{{ $area->name }} </option>
+                                    @endforeach
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                    <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Estimate</a></p>
                 </div>
-                <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+                <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
                     <div class="cart-total mb-3">
                         <h3>Cart Totals</h3>
                         <p class="d-flex">
@@ -160,7 +146,7 @@
                         </p>
                         <p class="d-flex">
                             <span>Delivery</span>
-                            <span>$0.00</span>
+                            <span id="delivryPrice">$0.00</span>
                         </p>
                         <hr>
                         <p class="d-flex total-price">
@@ -180,6 +166,17 @@
 @push('styles')
     <style>
         /* Page Specific Custom Style Here */
+        .select2-selection__rendered {
+            line-height: 52px !important;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 52px !important;
+        }
+
+        .select2-selection__arrow {
+            height: 52px !important;
+        }
 
     </style>
 @endpush
@@ -187,38 +184,13 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-
-            var quantitiy = 0;
-            $('.quantity-right-plus').click(function(e) {
-
-                // Stop acting like a button
-                e.preventDefault();
-                // Get the field name
-                var quantity = parseInt($('#quantity').val());
-
-                // If is not undefined
-
-                $('#quantity').val(quantity + 1);
-
-
-                // Increment
-
-            });
-
-            $('.quantity-left-minus').click(function(e) {
-                // Stop acting like a button
-                e.preventDefault();
-                // Get the field name
-                var quantity = parseInt($('#quantity').val());
-
-                // If is not undefined
-
-                // Increment
-                if (quantity > 0) {
-                    $('#quantity').val(quantity - 1);
-                }
-            });
-
+            $('.js-example-basic-single').select2();
         });
+
+        function displayDelivryPrice(value) {
+            var priceSpan = document.getElementById("delivryPrice");
+            priceSpan.textContent = '$' + value;
+            console.log('the name is :' + value);
+        }
     </script>
 @endpush

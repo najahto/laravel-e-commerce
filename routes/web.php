@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SectorController;
+use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Client\ClientController;
@@ -38,6 +40,8 @@ Route::group(
         Route::resource('sliders', '\App\Http\Controllers\Admin\SliderController');
         Route::get('slider/{id}/activate', [SliderController::class, 'activateSlider'])->name('activate.slider');
         Route::get('slider/{id}/inactivate', [SliderController::class, 'inactivateSlider'])->name('inactivate.slider');
+        Route::resource('sectors', '\App\Http\Controllers\Admin\SectorController');
+        Route::resource('areas', '\App\Http\Controllers\Admin\AreaController');
     }
 );
 
@@ -51,7 +55,8 @@ Route::post('/update-quantity/{id}', [ShoppingController::class, 'updateQuantity
 Route::get('/remove-from-cart/{id}', [ShoppingController::class, 'removeFromCart'])->name('remove-from-cart');
 Route::get('/checkout', [ShoppingController::class, 'checkout']);
 
-
+Route::get('/login', [ClientController::class, 'login'])->name('login');
+Route::get('/register', [ClientController::class, 'register'])->name('register');
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');

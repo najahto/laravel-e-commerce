@@ -18,7 +18,6 @@ class ProductController extends Controller
      */
     public function index()
     {
-
         $products = Product::paginate(Constant::COUNT_PER_PAGE);
         return view('admin.products.index')->with('products', $products);
     }
@@ -50,7 +49,7 @@ class ProductController extends Controller
         ]);
 
         $image_url = $this->uploadImage($request);
-        
+
         $product = Product::create([
             'name' => $request->name,
             'price' => $request->price,

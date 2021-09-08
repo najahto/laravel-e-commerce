@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Cart;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Sector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -18,8 +19,11 @@ class ShoppingController extends Controller
 
         $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
-
-        return view('client.cart')->with('products', $cart->items);
+        $sectors = Sector::all();
+        return view('client.cart', [
+            'products' => $cart->items,
+            'sectors' => $sectors
+        ]);
     }
 
     public function addToCart($id)
@@ -60,6 +64,6 @@ class ShoppingController extends Controller
     public function checkout()
     {
         if (!Session::has('client'))
-            return view('client.checkout');
+            return view('client.auth.login');
     }
 }

@@ -30,6 +30,8 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/icomoon.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
 
+    {{-- Select 2 --}}
+    <link href="{{ asset('frontend/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
     @stack('styles')
 
 </head>
@@ -73,6 +75,8 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="{{ asset('frontend/js/google-map.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
+    {{-- Select 2 --}}
+    <script src="{{ asset('frontend/js/select2.min.js') }}"></script>
     @stack('scripts')
 
 </body>

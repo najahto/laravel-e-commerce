@@ -1,7 +1,7 @@
 @extends('layouts.admin_layout.admin')
 
 @section('pagetitle', 'Products - ' . config('app.name'))
-    <!-- start content -->
+<!-- start content -->
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">

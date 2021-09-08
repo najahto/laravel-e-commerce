@@ -34,20 +34,20 @@ class ClientController extends Controller
     public function productDetail($id)
     {
         $productDetail = Product::findOrFail($id);
-        $relartedProducts = Product::where('id', '!=', $productDetail->id)->where('category_id', $productDetail->category->id)->limit(4)->get();
+        $relatedProducts = Product::where('id', '!=', $productDetail->id)->where('category_id', $productDetail->category->id)->limit(4)->get();
         return view('client.product_detail', [
             'productDetail' => $productDetail,
-            'relartedProducts' => $relartedProducts,
+            'relatedProducts' => $relatedProducts,
         ]);
     }
 
     public function login()
     {
-        return view('client.checkout');
+        return view('client.auth.login');
     }
 
     public function register()
     {
-        return view('client.checkout');
+        return view('client.auth.register');
     }
 }
