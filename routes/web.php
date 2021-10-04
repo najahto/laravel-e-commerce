@@ -53,6 +53,7 @@ Route::get('/cart', [ShoppingController::class, 'cart'])->name('cart');
 Route::get('/add-to-cart/{id}', [ShoppingController::class, 'addToCart'])->name('add-to-cart');
 Route::post('/update-quantity/{id}', [ShoppingController::class, 'updateQuantity'])->name('update-quantity');
 Route::get('/remove-from-cart/{id}', [ShoppingController::class, 'removeFromCart'])->name('remove-from-cart');
+Route::post('/estimate-shipping', [ShoppingController::class, 'estimateShipping'])->name('estimate-shipping');
 Route::get('/checkout', [ShoppingController::class, 'checkout']);
 
 Route::get('/login', [ClientController::class, 'login'])->name('login');

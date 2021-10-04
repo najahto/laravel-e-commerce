@@ -61,6 +61,22 @@ class ShoppingController extends Controller
         return redirect()->back();
     }
 
+    public function estimateShipping(Request $request)
+    {
+        $this->validate($request, [
+            'areaPrice' => 'required'
+        ]);
+
+        $estimatedShippingPrice = $request->areaPrice;
+        if (Session::has('estimatedShippingPrice')) {
+            Session::forget('estimatedShippingPrice');
+            if ($estimatedShippingPrice > 0) {
+                Session::put('estimatedShippingPrice', $estimatedShippingPrice);
+            }
+        }
+
+        return redirect()->back();
+    }
     public function checkout()
     {
         if (!Session::has('client'))

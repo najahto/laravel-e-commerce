@@ -118,24 +118,27 @@
             </div>
             <div class="row justify-content-end">
                 <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
-                    <div class="cart-total mb-3">
-                        <h3>Estimate shipping </h3>
-                        <p>Enter your destination to get a shipping estimate</p>
-                        <div class="form-group">
-                            <label for="area">Delivery sectors and areas</label>
-                            <select name="area" class="js-example-basic-single form-control"
-                                onchange="displayDelivryPrice(this.value)" id="">
-                                @foreach ($sectors as $sector)
-                                    <option disabled selected value> -- select an area -- </option>
-                                    <optgroup label="{{ $sector->name }} &nbsp;-&nbsp;${{ $sector->price }}">
-                                    </optgroup>
-                                    @foreach ($sector->areas as $area)
-                                        <option value="{{ $sector->price }}">{{ $area->name }} </option>
+                    <form action="{{ route('estimate-shipping') }}" method="POST">
+                        @csrf
+                        <div class="cart-total mb-3">
+                            <h3>Estimate shipping </h3>
+                            <div class="form-group">
+                                <label for="area">Delivery sectors and areas</label>
+                                <select name="areaPrice" class="js-example-basic-single form-control" id="">
+                                    @foreach ($sectors as $sector)
+                                        <option disabled selected value> -- select an area -- </option>
+                                        <optgroup label="{{ $sector->name }}">
+                                        </optgroup>
+                                        @foreach ($sector->areas as $area)
+                                            <option value="{{ $sector->price }}">{{ $area->name }} </option>
+                                        @endforeach
                                     @endforeach
-                                @endforeach
-                            </select>
+                                </select>
+                            </div>
                         </div>
-                    </div>
+                        <p><a href="#" onclick="$(this).closest('form').submit()"
+                                class="btn btn-primary py-3 px-4">Estimate</a></p>
+                    </form>
                 </div>
                 <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
                     <div class="cart-total mb-3">
@@ -146,7 +149,13 @@
                         </p>
                         <p class="d-flex">
                             <span>Delivery</span>
-                            <span id="delivryPrice">$0.00</span>
+                            @php
+                                $shippingPrice = 0;
+                                if (Session::has('estimatedShippingPrice')) {
+                                    $shippingPrice = Session::get('estimatedShippingPrice');
+                                }
+                            @endphp
+                            <span id="delivryPrice">$ {{ $shippingPrice }}</span>
                         </p>
                         <hr>
                         <p class="d-flex total-price">
@@ -155,6 +164,15 @@
                         </p>
                     </div>
                     <p><a href="{{ url('/checkout') }}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                </div>
+                <div class="col-lg-12">
+                    @if (count($errors->all()))
+                        <ul class="list-group" style="padding: 5px 25px 25px">
+                            @foreach ($errors->all() as $error)
+                                <li class="list-group-item list-group-item-danger">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
             </div>
         </div>
